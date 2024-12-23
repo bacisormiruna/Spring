@@ -8,10 +8,9 @@ import org.springframework.core.metrics.StartupStep;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("tags")
@@ -44,5 +43,20 @@ public class TagController {
         }
         tagRepository.save(tag);
         return "redirect:/tags";
+    }
+    @GetMapping("{tagId}/events")
+    public String displayEventsByTag(@PathVariable Integer tagId, Model model) {
+        Optional<Tag> result = tagRepository.findById(tagId);
+
+        if (result.isPresent()) {
+            Tag tag = result.get();
+            model.addAttribute("title", "Events with tag: " + tag.getName());
+            model.addAttribute("events", tag.getEvents());
+        } else {
+            model.addAttribute("title", "Invalid Tag ID: " + tagId);
+            model.addAttribute("events", null);
+        }
+
+        return "tags/events"; // Template-ul va fi în directorul "tags".
     }
 }
