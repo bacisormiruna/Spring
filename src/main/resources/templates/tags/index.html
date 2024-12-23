@@ -16,7 +16,7 @@
     <tbody>
     <tr th:each="tag : ${tags}">
         <td>
-            <a th:text="${tag.name}" href="#"></a>
+            <a th:text="${tag.name}" th:href="@{/tags/{id}/events(id=${tag.id})}"></a>
         </td>
     </tr>
     </tbody>
