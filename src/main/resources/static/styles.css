@@ -1,0 +1,14 @@
+body{
+    font-size: 18px;
+    color: purple !important;
+}
+.error {
+    color: red !important;
+}
+
+<style>
+    input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+    }
+</style>
